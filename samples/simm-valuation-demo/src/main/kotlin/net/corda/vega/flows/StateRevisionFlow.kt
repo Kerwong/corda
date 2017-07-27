@@ -1,10 +1,11 @@
 package net.corda.vega.flows
 
 import net.corda.core.contracts.StateAndRef
-import net.corda.core.identity.Party
-import net.corda.core.utilities.seconds
 import net.corda.core.flows.AbstractStateReplacementFlow
 import net.corda.core.flows.StateReplacementException
+import net.corda.core.identity.Party
+import net.corda.core.transactions.SignedTransaction
+import net.corda.core.utilities.seconds
 import net.corda.vega.contracts.RevisionedState
 
 /**
@@ -28,8 +29,8 @@ object StateRevisionFlow {
     }
 
     open class Receiver<in T>(otherParty: Party) : AbstractStateReplacementFlow.Acceptor<T>(otherParty) {
-        override fun verifyProposal(proposal: AbstractStateReplacementFlow.Proposal<T>) {
-            val proposedTx = proposal.stx.tx
+        override fun verifyProposal(stx: SignedTransaction, proposal: AbstractStateReplacementFlow.Proposal<T>) {
+            val proposedTx = stx.tx
             val state = proposal.stateRef
             if (state !in proposedTx.inputs) {
                 throw StateReplacementException("The proposed state $state is not in the proposed transaction inputs")
