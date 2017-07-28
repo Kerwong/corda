@@ -57,6 +57,15 @@ UNRELEASED
    * ``Cordformation`` adds a ``corda`` and ``cordaRuntime`` configuration to projects which cordapp developers should
      use to exclude core Corda JARs from being built into Cordapp fat JARs.
 
+* Changes to identity as part of confidential identities:
+
+  * ``PartyAndCertificate`` has been renamed to ``VerifiedParty``, and a corresponding ``AnonymousVerifiedParty`` class
+    added.
+
+  * ``registerAnonymousIdentity`` is now ``verifyAndRegisterAnonymousIdentity`` to indicate it performs sanity checks on
+    the identity provided. A separate ``verifyAnonymousIdentity`` function has been added for use-cases where verification
+    is performed indepdently of registration.
+
 Milestone 13
 ------------
 
