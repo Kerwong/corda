@@ -64,7 +64,7 @@ open class RatesFixFlow(protected val tx: TransactionBuilder,
         progressTracker.currentStep = SIGNING
         val mtx = tx.toWireTransaction().buildFilteredTransaction(Predicate { filtering(it) })
         val signature = subFlow(FixSignFlow(tx, oracle, mtx))
-        tx.addSignatureUnchecked(signature)
+        tx.signInitialTransaction(signature)
     }
     // DOCEND 2
 
